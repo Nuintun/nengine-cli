@@ -1,0 +1,46 @@
+{
+    "name": "nengine-cli",
+    "version": "0.0.1",
+    "description": "The nengine command line interface",
+    "author": {
+        "name": "Nuintun",
+        "email": "nuintun@qq.com"
+    },
+    "homepage": "https://nuintun.github.io/nengine-cli",
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/Nuintun/nengine-cli.git"
+    },
+    "bugs": {
+        "url": "http://github.com/Nuintun/nengine-cli/issues"
+    },
+    "licenses": [
+        {
+            "type": "MIT",
+            "url": "http://github.com/Nuintun/nengine-cli/LICENSE-MIT"
+        }
+    ],
+    "bin": {
+        "nengine": "bin/nengine"
+    },
+    "engines": {
+        "node": ">= 0.8.0"
+    },
+    "keywords": [
+        "server",
+        "http",
+        "http server"
+    ],
+    "preferGlobal": true,
+    "dependencies": {
+        "nopt": "~3.0.1",
+        "findup-sync": "~0.1.0",
+        "resolve": "~0.3.1"
+    },
+    "devDependencies": {
+        "coveralls": "~2.10.0",
+        "jscoverage": "~0.3.8",
+        "mocha-lcov-reporter": "~0.0.1"
+    },
+    "readmeFilename": "README.md"
+}

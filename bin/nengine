@@ -1,0 +1,39 @@
+#!/usr/bin/env node
+
+'use strict';
+
+process.title = 'nengine';
+
+// Especially badass external libs.
+var findup = require('findup-sync'),
+    resolve = require('resolve').sync,
+// Internal libs.
+    nenginepath,
+    options = require('../lib/cli').options,
+    info = require('../lib/info'),
+    path = require('path'),
+    basedir = process.cwd();
+
+// Do stuff based on CLI options.
+if (options.version) {
+    info.version();
+} else if (options.configfile) { //Note: if both `configfile` and `root` are set, use `configfile`
+    basedir = path.resolve(path.dirname(options.configfile));
+} else if (options.root) {
+    basedir = path.resolve(options.root);
+}
+
+try {
+    nenginepath = resolve('nengine', { basedir: basedir });
+} catch (ex) {
+    nenginepath = findup('nengine.js');
+    // No grunt install found!
+    if (!nenginepath) {
+        if (options.version) { process.exit(); }
+        if (options.help) { info.help(); }
+        info.fatal('Unable to find local nengine', 99);
+    }
+}
+
+// Everything looks good. Require local nengine and run it.
+require(nenginepath).cli();
