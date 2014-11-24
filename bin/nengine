@@ -2,6 +2,7 @@
 
 'use strict';
 
+// set process title
 process.title = 'nengine';
 
 // Especially badass external libs.
@@ -15,10 +16,11 @@ var findup = require('findup-sync'),
 
 // Do stuff based on CLI options.
 if (options.version) {
+    // show version
     info.version();
 } else if (options.configfile) {
     //Note: if both `configfile` and `root` are set, use `configfile`
-    basedir = path.resolve(path.dirname(options.build));
+    basedir = path.resolve(path.dirname(options.configfile));
 } else if (options.root) {
     basedir = path.resolve(options.root);
 }
@@ -27,10 +29,14 @@ try {
     nenginepath = resolve('nengine', { basedir: basedir });
 } catch (ex) {
     nenginepath = findup('lib/nengine.js');
+
     // No grunt install found!
     if (!nenginepath) {
+        // show version info, exit process
         options.version && process.exit();
+        // show help info
         options.help && info.help();
+        // not find local nengine
         info.fatal('Unable to find local nengine', 99);
     }
 }
