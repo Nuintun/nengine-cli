@@ -7,8 +7,7 @@ process.title = 'nengine';
 // Especially badass external libs.
 var findup = require('findup-sync'),
     resolve = require('resolve').sync,
-// Internal libs.
-    nenginepath,
+    nenginepath, // Internal libs.
     options = require('../lib/cli').options,
     info = require('../lib/info'),
     path = require('path'),
@@ -19,7 +18,7 @@ if (options.version) {
     info.version();
 } else if (options.configfile) {
     //Note: if both `configfile` and `root` are set, use `configfile`
-    basedir = path.resolve(path.dirname(options.configfile));
+    basedir = path.resolve(path.dirname(options.build));
 } else if (options.root) {
     basedir = path.resolve(options.root);
 }
