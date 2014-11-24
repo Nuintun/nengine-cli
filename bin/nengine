@@ -37,4 +37,4 @@ try {
 }
 
 // Everything looks good. Require local nengine and run it.
-require(nenginepath).cli();
+require(nenginepath).cli(options);
