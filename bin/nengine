@@ -17,7 +17,8 @@ var findup = require('findup-sync'),
 // Do stuff based on CLI options.
 if (options.version) {
     info.version();
-} else if (options.configfile) { //Note: if both `configfile` and `root` are set, use `configfile`
+} else if (options.configfile) {
+    //Note: if both `configfile` and `root` are set, use `configfile`
     basedir = path.resolve(path.dirname(options.configfile));
 } else if (options.root) {
     basedir = path.resolve(options.root);
