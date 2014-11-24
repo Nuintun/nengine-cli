@@ -26,7 +26,7 @@ if (options.version) {
 try {
     nenginepath = resolve('nengine', { basedir: basedir });
 } catch (ex) {
-    nenginepath = findup('nengine.js');
+    nenginepath = findup('lib/nengine.js');
     // No grunt install found!
     if (!nenginepath) {
         if (options.version) { process.exit(); }
