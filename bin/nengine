@@ -29,11 +29,11 @@ try {
     nenginepath = findup('lib/nengine.js');
     // No grunt install found!
     if (!nenginepath) {
-        if (options.version) { process.exit(); }
-        if (options.help) { info.help(); }
+        options.version && process.exit();
+        options.help && info.help();
         info.fatal('Unable to find local nengine', 99);
     }
 }
 
 // Everything looks good. Require local nengine and run it.
-require(nenginepath).cli(options);
+require(nenginepath).cli();
