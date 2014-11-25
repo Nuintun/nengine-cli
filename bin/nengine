@@ -6,11 +6,12 @@
 process.title = 'nengine';
 
 var nenginepath, // Nengine module path
-    path = require('path'), // Internal libs
+    isUnderRoot, // Is nengine found under the root directory
+    fs = require('fs'), // Internal libs
+    path = require('path'),
     basedir = process.cwd(),
     help = require('../lib/help'),
-    findup = require('findup-sync'), // Especially badass external libs
-    resolve = require('resolve').sync,
+    resolve = require('resolve').sync, // Especially badass external libs
     options = require('../lib/cli').options;
 
 // Do stuff based on CLI options.
@@ -19,26 +20,40 @@ if (options.version) {
     help.version();
 } else if (options.configfile) {
     //Note: if both `configfile` and `root` are set, use `configfile`
-    basedir = path.dirname(options.configfile);
+    if (path.extname(options.configfile).toLowerCase() === '.json') {
+        if (fs.existsSync(options.configfile)) {
+            try {
+                var root = require(options.configfile).root;
+                basedir = root ? path.resolve(path.dirname(options.configfile), root) : path.dirname(options.configfile);
+            } catch (e) {
+
+            }
+        }
+    }
 } else if (options.root) {
-    basedir = options.root;
+    if (fs.existsSync(options.root)) {
+        basedir = options.root;
+    }
 }
 
 // Find local nengine
 try {
     nenginepath = resolve('nengine', { basedir: basedir });
 } catch (e) {
-    nenginepath = findup('nengine/lib/nengine.js');
+    // Unable to find local nengine
+}
 
-    // No local nengine found
-    if (!nenginepath) {
-        // Show version info, exit process
-        options.version && process.exit();
-        // Show help info
-        options.help && help.help();
-        // Show fatal info
-        help.fatal('Unable to find local nengine', 99);
-    }
+// Is nengine found under the root directory
+isUnderRoot = nenginepath && !/^\.\.[\\/]/.test(path.normalize(path.relative(basedir, nenginepath)));
+
+// No local nengine found under webroot directory
+if (!nenginepath || !isUnderRoot) {
+    // Show version info, exit process
+    options.version && process.exit();
+    // Show help info
+    options.help && help.help();
+    // Show fatal info
+    help.fatal('Unable to find local nengine under the root directory', 99);
 }
 
 // Everything looks good. Require local nengine and run it.
