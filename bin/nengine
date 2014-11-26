@@ -5,49 +5,87 @@
 // Set process title
 process.title = 'nengine';
 
-var nenginepath, // Nengine module path
-    isUnderRoot, // Is nengine found under the root directory
+var nengine, // Nengine module
     fs = require('fs'), // Internal libs
     path = require('path'),
     basedir = process.cwd(),
     help = require('../lib/help'),
-    resolve = require('resolve').sync, // Especially badass external libs
-    options = require('../lib/cli').options;
+    options = require('../lib/cli').options; // Especially badass external libs
 
 // Do stuff based on CLI options.
 if (options.version) {
-    // Show version
+    // Display version
     help.version();
 } else if (options.configfile) {
-    //Note: if both `configfile` and `root` are set, use `configfile`
-    if (path.extname(options.configfile).toLowerCase() === '.json') {
-        if (fs.existsSync(options.configfile)) {
-            try {
-                var root = require(options.configfile).root;
-                basedir = root ? path.resolve(path.dirname(options.configfile), root) : path.dirname(options.configfile);
-            } catch (e) {
+    // Note: if both `configfile` and `root` are set, use `configfile` dirname
+    basedir = path.dirname(options.configfile);
+} else if (options.root) {
+    basedir = options.root;
+}
 
+/**
+ * normalize
+ * @param path
+ * @returns {string}
+ */
+function normalize(path){
+    var sepRE = /\\/g;
+
+    // Replace \ to /
+    return path.replace(sepRE, '/');
+}
+
+/**
+ * resolve
+ * @param moudule
+ * @param root
+ * @returns {*}
+ */
+function resolve(moudule, root){
+    var main, pkg, i,
+        fspath, fsname;
+
+    root = path.join(root, 'node_modules');
+
+    // if root exists recurse root
+    if (fs.existsSync(root)) {
+        fsname = fs.readdirSync(root);
+        i = fsname.length - 1;
+
+        // Recurse directory
+        for (; i >= 0; i--) {
+            fspath = path.join(root, fsname[i]);
+
+            // Read package.json
+            try {
+                pkg = require(path.join(fspath, 'package.json'));
+                // Find moudule package.json
+                if (pkg.name === moudule) {
+                    main = path.join(fspath, pkg.main || 'index');
+
+                    // Is module main exists
+                    if (fs.existsSync(main) || fs.existsSync(main + '.js')) {
+                        return normalize(main);
+                    }
+                }
+            } catch (e) {
+                // Failed to parse package.json
             }
+
+            // Recurse directory
+            resolve(moudule, fspath);
         }
     }
-} else if (options.root) {
-    if (fs.existsSync(options.root)) {
-        basedir = options.root;
-    }
+
+    return null;
 }
 
-// Find local nengine
+// Run local nengine
 try {
-    nenginepath = resolve('nengine', { basedir: basedir });
+    // Find local nengine and require local nengine and run it
+    require(resolve('nengine', basedir)).cli();
 } catch (e) {
-    // Unable to find local nengine
-}
-
-// Is nengine found under the root directory
-isUnderRoot = nenginepath && !/^\.\.[\\/]/.test(path.normalize(path.relative(basedir, nenginepath)));
-
-// No local nengine found under webroot directory
-if (!nenginepath || !isUnderRoot) {
+    // Not find local nengine
     // Show version info, exit process
     options.version && process.exit();
     // Show help info
@@ -55,6 +93,3 @@ if (!nenginepath || !isUnderRoot) {
     // Show fatal info
     help.fatal('Unable to find local nengine under the root directory', 99);
 }
-
-// Everything looks good. Require local nengine and run it.
-require(nenginepath).cli();
