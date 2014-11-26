@@ -6,9 +6,9 @@
 process.title = 'nengine';
 
 var nengine, // Nengine module
-    fs = require('fs'), // Internal libs
     path = require('path'),
     basedir = process.cwd(),
+    resolve = require('../lib/resolve'), // Internal libs
     help = require('../lib/help'),
     options = require('../lib/cli').options; // Especially badass external libs
 
@@ -21,67 +21,6 @@ if (options.version) {
     basedir = path.dirname(options.configfile);
 } else if (options.root) {
     basedir = options.root;
-}
-
-/**
- * normalize
- * @param path
- * @returns {string}
- */
-function normalize(path){
-    var sepRE = /\\/g;
-
-    // Replace \ to /
-    return path.replace(sepRE, '/');
-}
-
-/**
- * resolve
- * @param moudule
- * @param root
- * @returns {*}
- */
-function resolve(moudule, root){
-    var main = null, pkg,
-        i, fspath, fsname;
-
-    root = path.join(root, 'node_modules');
-
-    // if root exists recurse root
-    if (fs.existsSync(root)) {
-        fsname = fs.readdirSync(root);
-        i = fsname.length - 1;
-
-        // Recurse directory
-        for (; i >= 0; i--) {
-            fspath = path.join(root, fsname[i]);
-
-            // Read package.json
-            try {
-                pkg = require(path.join(fspath, 'package.json'));
-                // Find moudule package.json
-                if (pkg.name === moudule) {
-                    main = path.join(fspath, pkg.main || 'index');
-
-                    // Is module main exists
-                    if (fs.existsSync(main) || fs.existsSync(main + '.js')) {
-                        return normalize(main);
-                    }
-                }
-            } catch (e) {
-                // Failed to parse package.json
-            }
-
-            // Recurse directory
-            main = resolve(moudule, fspath);
-
-            if (main !== null) {
-                return main;
-            }
-        }
-    }
-
-    return main;
 }
 
 // Run local nengine
