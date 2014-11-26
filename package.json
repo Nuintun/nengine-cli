@@ -31,9 +31,6 @@
         "http",
         "http server"
     ],
-    "scripts": {
-        "test": "node bin/nengine test"
-    },
     "preferGlobal": true,
     "dependencies": {
         "nopt": "~3.0.1",
