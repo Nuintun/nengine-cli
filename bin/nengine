@@ -42,8 +42,8 @@ function normalize(path){
  * @returns {*}
  */
 function resolve(moudule, root){
-    var main, pkg, i,
-        fspath, fsname;
+    var main = null, pkg,
+        i, fspath, fsname;
 
     root = path.join(root, 'node_modules');
 
@@ -73,11 +73,15 @@ function resolve(moudule, root){
             }
 
             // Recurse directory
-            resolve(moudule, fspath);
+            main = resolve(moudule, fspath);
+
+            if (main !== null) {
+                return main;
+            }
         }
     }
 
-    return null;
+    return main;
 }
 
 // Run local nengine
