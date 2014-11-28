@@ -15,7 +15,7 @@ var nengine, // Nengine module
 // Do stuff based on CLI options.
 if (options.version) {
     // Display version
-    help.version();
+    help.version(options.verbose);
 } else if (options.configfile) {
     // Note: if both `configfile` and `root` are set, use `configfile` dirname
     basedir = path.dirname(options.configfile);
@@ -23,16 +23,35 @@ if (options.version) {
     basedir = options.root;
 }
 
-// Run local nengine
-try {
+// Get nengine path
+nengine = resolve('nengine', basedir);
+
+// Not find local nengine
+if (nengine === null) {
+    // Display infomation
+    displayInfo();
+} else {
     // Find local nengine and require local nengine and run it
-    require(resolve('nengine', basedir)).cli();
-} catch (e) {
-    // Not find local nengine
+    nengine = require(nengine);
+
+    // If has cli function
+    if (typeof nengine.cli === 'function') {
+        // Run local nengine
+        nengine.cli();
+    } else {
+        // Display infomation
+        displayInfo();
+    }
+}
+
+/**
+ * Display infomation
+ */
+function displayInfo(){
     // Show version info, exit process
     options.version && process.exit();
     // Show help info
     options.help && help.help();
     // Show fatal info
-    help.fatal('Unable to find local nengine under the root directory', 99);
+    help.fatal('Unable to find local nengine', 99);
 }
