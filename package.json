@@ -1,41 +1,41 @@
 {
-    "name": "nengine-cli",
-    "version": "0.2.0",
-    "description": "The nengine command line interface",
-    "author": {
-        "name": "Nuintun",
-        "email": "nuintun@qq.com"
-    },
-    "homepage": "https://nuintun.github.io/nengine-cli",
-    "repository": {
-        "type": "git",
-        "url": "git://github.com/Nuintun/nengine-cli.git"
-    },
-    "bugs": {
-        "url": "http://github.com/Nuintun/nengine-cli/issues"
-    },
-    "licenses": [
-        {
-            "type": "MIT",
-            "url": "https://github.com/Nuintun/nengine-cli/blob/master/LICENSE"
-        }
-    ],
-    "bin": {
-        "nengine": "bin/nengine"
-    },
-    "engines": {
-        "node": ">=0.10.0"
-    },
-    "keywords": [
-        "server",
-        "http",
-        "http server"
-    ],
-    "preferGlobal": true,
-    "dependencies": {
-        "nopt": "~3.0.1",
-        "colors": "~1.0.3"
-    },
-    "devDependencies": {},
-    "readmeFilename": "README.md"
+  "name": "nengine-cli",
+  "version": "0.2.0",
+  "description": "The nengine command line interface",
+  "author": {
+    "name": "Nuintun",
+    "email": "nuintun@qq.com"
+  },
+  "homepage": "https://nuintun.github.io/nengine-cli",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/Nuintun/nengine-cli.git"
+  },
+  "bugs": {
+    "url": "http://github.com/Nuintun/nengine-cli/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/Nuintun/nengine-cli/blob/master/LICENSE"
+    }
+  ],
+  "bin": {
+    "nengine": "bin/nengine"
+  },
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "keywords": [
+    "server",
+    "http",
+    "http server"
+  ],
+  "preferGlobal": true,
+  "dependencies": {
+    "nopt": "~3.0.1",
+    "colors": "~1.0.3"
+  },
+  "devDependencies": {},
+  "readmeFilename": "README.md"
 }

@@ -6,21 +6,21 @@
 process.title = 'nengine';
 
 var nengine, // Nengine module
-    path = require('path'),
-    basedir = process.cwd(),
-    resolve = require('../lib/resolve'), // Internal libs
-    help = require('../lib/help'),
-    options = require('../lib/cli').options; // Especially badass external libs
+  path = require('path'),
+  basedir = process.cwd(),
+  resolve = require('../lib/resolve'), // Internal libs
+  help = require('../lib/help'),
+  options = require('../lib/cli').options; // Especially badass external libs
 
 // Do stuff based on CLI options.
 if (options.version) {
-    // Display version
-    help.version(options.verbose);
+  // Display version
+  help.version(options.verbose);
 } else if (options.configfile) {
-    // Note: if both `configfile` and `root` are set, use `configfile` dirname
-    basedir = path.dirname(options.configfile);
+  // Note: if both `configfile` and `root` are set, use `configfile` dirname
+  basedir = path.dirname(options.configfile);
 } else if (options.root) {
-    basedir = options.root;
+  basedir = options.root;
 }
 
 // Get nengine path
@@ -28,30 +28,30 @@ nengine = resolve('nengine', basedir);
 
 // Not find local nengine
 if (nengine === null) {
+  // Display infomation
+  displayInfo();
+} else {
+  // Find local nengine and require local nengine and run it
+  nengine = require(nengine);
+
+  // If has cli function
+  if (typeof nengine.cli === 'function') {
+    // Run local nengine
+    nengine.cli();
+  } else {
     // Display infomation
     displayInfo();
-} else {
-    // Find local nengine and require local nengine and run it
-    nengine = require(nengine);
-
-    // If has cli function
-    if (typeof nengine.cli === 'function') {
-        // Run local nengine
-        nengine.cli();
-    } else {
-        // Display infomation
-        displayInfo();
-    }
+  }
 }
 
 /**
  * Display infomation
  */
 function displayInfo(){
-    // Show version info, exit process
-    options.version && process.exit();
-    // Show help info
-    options.help && help.help();
-    // Show fatal info
-    help.fatal('Unable to find local nengine', 99);
+  // Show version info, exit process
+  options.version && process.exit();
+  // Show help info
+  options.help && help.help();
+  // Show fatal info
+  help.fatal('Unable to find local nengine', 99);
 }
