@@ -22,4 +22,4 @@ See the [Getting Started](https://nuintun.github.io/nengine) guide for more info
 
 [david-image]: http://img.shields.io/david/nuintun/nengine-cli.svg?style=flat-square
 [david-url]: https://david-dm.org/Nuintun/nengine-cli
-[node-image]: http://img.shields.io/node/v/file-send.svg?style=flat-square
+[node-image]: http://img.shields.io/node/v/nengine-cli.svg?style=flat-square
