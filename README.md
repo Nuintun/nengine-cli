@@ -23,7 +23,7 @@ See the [Getting Started](https://nuintun.github.io/nengine) guide for more info
 [MIT](LICENSE)
 
 [david-image]: http://img.shields.io/david/nuintun/nengine-cli.svg?style=flat-square
-[david-url]: https://david-dm.org/Nuintun/nengine-cli
+[david-url]: https://david-dm.org/nuintun/nengine-cli
 [node-image]: http://img.shields.io/node/v/nengine-cli.svg?style=flat-square
 [npm-image]: http://img.shields.io/npm/v/nengine-cli.svg?style=flat-square
 [npm-url]: https://www.npmjs.org/package/nengine-cli

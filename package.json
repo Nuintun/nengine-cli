@@ -3,21 +3,21 @@
   "version": "0.2.2",
   "description": "The nengine command line interface",
   "author": {
-    "name": "Nuintun",
+    "name": "nuintun",
     "email": "nuintun@qq.com"
   },
   "homepage": "https://nuintun.github.io/nengine-cli",
   "repository": {
     "type": "git",
-    "url": "git://github.com/Nuintun/nengine-cli.git"
+    "url": "git://github.com/nuintun/nengine-cli.git"
   },
   "bugs": {
-    "url": "http://github.com/Nuintun/nengine-cli/issues"
+    "url": "http://github.com/nuintun/nengine-cli/issues"
   },
   "licenses": [
     {
       "type": "MIT",
-      "url": "https://github.com/Nuintun/nengine-cli/blob/master/LICENSE"
+      "url": "https://github.com/nuintun/nengine-cli/blob/master/LICENSE"
     }
   ],
   "bin": {
