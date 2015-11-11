@@ -1,6 +1,6 @@
 {
   "name": "nengine-cli",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "The nengine command line interface",
   "author": {
     "name": "nuintun",
@@ -33,8 +33,8 @@
   ],
   "preferGlobal": true,
   "dependencies": {
-    "nopt": "^3.0.2",
-    "colors": "^1.1.0"
+    "nopt": "^3.0.4",
+    "colors": "^1.1.2"
   },
   "devDependencies": {},
   "readmeFilename": "README.md"
