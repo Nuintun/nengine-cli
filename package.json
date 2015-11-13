@@ -1,6 +1,6 @@
 {
   "name": "nengine-cli",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "The nengine command line interface",
   "author": {
     "name": "nuintun",
@@ -33,7 +33,7 @@
   ],
   "preferGlobal": true,
   "dependencies": {
-    "nopt": "^3.0.4",
+    "nopt": "^3.0.6",
     "colors": "^1.1.2"
   },
   "devDependencies": {},
