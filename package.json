@@ -1,6 +1,6 @@
 {
   "name": "nengine-cli",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "description": "The nengine command line interface",
   "author": {
     "name": "nuintun",
