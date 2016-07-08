@@ -12,7 +12,7 @@ var resolve = require('../lib/resolve'); // internal libs
 var help = require('../lib/help');
 var options = require('../lib/cli').options; // especially badass external libs
 
-// do stuff based on CLI options.
+// do stuff based on cli options.
 if (options.version) {
   // display version
   help.version(options.verbose);
