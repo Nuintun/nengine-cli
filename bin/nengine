@@ -47,7 +47,7 @@ if (nengine === null) {
 /**
  * display infomation
  */
-function displayInfo(){
+function displayInfo() {
   // show version info, exit process
   options.version && process.exit();
   // show help info
